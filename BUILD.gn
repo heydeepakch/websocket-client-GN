@@ -1,0 +1,5 @@
+executable("ws_client") {
+  sources = [
+    "src/main.cpp",
+  ]
+}

@@ -1,0 +1,16 @@
+toolchain("default") {
+  tool("cc") {
+    command = "g++ -std=c++17 -c {{source}} -o {{output}}"
+    outputs = [ "{{source_out_dir}}/{{source_name_part}}.o" ]
+  }
+
+  tool("cxx") {
+    command = "g++ -std=c++17 -c {{source}} -o {{output}}"
+    outputs = [ "{{source_out_dir}}/{{source_name_part}}.o" ]
+  }
+
+  tool("link") {
+    command = "g++ {{inputs}} -o {{output}}"
+    outputs = [ "{{target_output_name}}{{output_extension}}" ]
+  }
+}
