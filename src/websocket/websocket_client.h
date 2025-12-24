@@ -7,6 +7,8 @@ class WebSocketImpl;
 
 class WebSocketClient {
 public:
+    bool isTLS() const { return use_tls_; }
+
     explicit WebSocketClient(bool use_tls);
     ~WebSocketClient();
     void connect(const std::string& host,
@@ -15,9 +17,11 @@ public:
 
     void sendText(const std::string& message);
     std::string receive();
+    
     void close();
 
 private:
     bool use_tls_;
+    
     std::unique_ptr<WebSocketImpl> impl_;
 };

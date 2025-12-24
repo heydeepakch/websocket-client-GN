@@ -3,15 +3,25 @@ executable("ws_client") {
     "src/main.cpp",
     "src/cli/cli.cpp",
     "src/websocket/websocket_client.cpp",
+    "src/app/chat_app.cpp",
   ]
 
   include_dirs = [
+    "src",  # For internal includes like "cli/cli.h"
     "third_party/cli11",
     "C:/msys64/ucrt64/include",
   ]
 
+  # Define BOOST_ASIO_HEADER_ONLY to use Boost without linking
+  defines = [
+    "BOOST_ASIO_HEADER_ONLY",
+  ]
+
   libs = [
+    "ssl",      # OpenSSL - TLS/SSL (must come before ws2_32)
+    "crypto",   # OpenSSL - Crypto
     "ws2_32",   # Windows Sockets 2
-    "wsock32",  # Windows Sockets (legacy, sometimes needed)
+    "crypt32",  # Windows Crypto API (needed for SSL)
+    "wsock32",  # Windows Sockets (legacy)
   ]
 }
