@@ -12,7 +12,7 @@ toolchain("default") {
   }
 
   tool("link") {
-    command = "cmd /c \"set PATH=C:\\msys64\\ucrt64\\bin;%PATH% && g++ {{inputs}} -o {{output}} -static-libgcc -static-libstdc++\""
+    command = "cmd /c \"set PATH=C:\\msys64\\ucrt64\\bin;%PATH% && g++ {{inputs}} -o {{output}} {{libs}} -static -static-libgcc -static-libstdc++ -Wl,-Bstatic -lstdc++ -lpthread -Wl,-Bdynamic\""
     outputs = [ "{{target_output_name}}{{output_extension}}" ]
     description = "LINK {{output}}"
   }

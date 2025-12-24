@@ -1,12 +1,19 @@
-#include <iostream>
 #include "cli/cli.h"
+#include "websocket/websocket_client.h"
+#include <iostream>
 
 int main(int argc, char* argv[]) {
-    CLIOptions options = parseCLI(argc, argv);
+    auto options = parseCLI(argc, argv);
 
-    std::cout << "URL     : " << options.url << "\n";
-    std::cout << "Binary  : " << (options.binary ? "true" : "false") << "\n";
-    std::cout << "Verbose : " << (options.verbose ? "true" : "false") << "\n";
+    WebSocketClient client(false);
 
-    return 0;
+    client.connect("echo.websocket.events", "80", "/");
+
+    std::string msg = "Hello WebSocket!";
+    client.sendText(msg);
+
+    std::string reply = client.receive();
+    std::cout << "Received: " << reply << std::endl;
+
+    client.close();
 }
