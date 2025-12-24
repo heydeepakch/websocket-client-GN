@@ -1,5 +1,11 @@
 executable("ws_client") {
   sources = [
     "src/main.cpp",
+    "src/cli/cli.cpp",
+    "src/websocket/websocket_client.cpp",
+  ]
+
+  include_dirs = [
+    "third_party/cli11",
   ]
 }

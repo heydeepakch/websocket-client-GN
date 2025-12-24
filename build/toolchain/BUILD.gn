@@ -1,16 +1,24 @@
 toolchain("default") {
   tool("cc") {
-    command = "g++ -std=c++17 -c {{source}} -o {{output}}"
+    command = "cmd /c \"set PATH=C:\\msys64\\ucrt64\\bin;%PATH% && g++ -std=c++17 {{include_dirs}} -c {{source}} -o {{output}}\""
     outputs = [ "{{source_out_dir}}/{{source_name_part}}.o" ]
+    description = "CC {{output}}"
   }
 
   tool("cxx") {
-    command = "g++ -std=c++17 -c {{source}} -o {{output}}"
+    command = "cmd /c \"set PATH=C:\\msys64\\ucrt64\\bin;%PATH% && g++ -std=c++17 {{include_dirs}} -c {{source}} -o {{output}}\""
     outputs = [ "{{source_out_dir}}/{{source_name_part}}.o" ]
+    description = "CXX {{output}}"
   }
 
   tool("link") {
-    command = "g++ {{inputs}} -o {{output}}"
+    command = "cmd /c \"set PATH=C:\\msys64\\ucrt64\\bin;%PATH% && g++ {{inputs}} -o {{output}} -static-libgcc -static-libstdc++\""
     outputs = [ "{{target_output_name}}{{output_extension}}" ]
+    description = "LINK {{output}}"
+  }
+
+  tool("stamp") {
+    command = "cmd /c type nul > {{output}}"
+    description = "STAMP {{output}}"
   }
 }
